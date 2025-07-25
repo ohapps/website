@@ -119,15 +119,22 @@ export function generateStaticParams() {
   return Object.keys(apps).map((slug) => ({ slug }));
 }
 
-export default function AppPage({ params }: { params: { slug: string } }) {
-  const app = apps[params.slug as keyof typeof apps];
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export default async function AppPage({ params }: PageProps) {
+  const { slug } = await params;
+  const app = apps[slug as keyof typeof apps];
 
   if (!app) {
     return (
       <div className="container py-10 text-center mx-auto">
         <h1 className="text-3xl font-bold mb-4">Application Not Found</h1>
         <p className="mb-6">
-          The application you're looking for doesn't exist.
+          The application you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button asChild>
           <Link href="/apps">

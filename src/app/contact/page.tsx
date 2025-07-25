@@ -29,7 +29,7 @@ export default function ContactPage() {
           <CardHeader>
             <CardTitle>Send us a message</CardTitle>
             <CardDescription>
-              Fill out the form below and we'll get back to you as soon as
+              Fill out the form below and we&apos;ll get back to you as soon as
               possible.
             </CardDescription>
           </CardHeader>
@@ -70,9 +70,9 @@ export default function ContactPage() {
           <div>
             <h2 className="text-2xl font-bold mb-4">Connect With Us</h2>
             <p className="text-muted-foreground mb-6">
-              We're always looking to connect with developers, designers, and
-              anyone interested in our projects. Feel free to reach out through
-              any of the channels below.
+              We&apos;re always looking to connect with developers, designers,
+              and anyone interested in our projects. Feel free to reach out
+              through any of the channels below.
             </p>
           </div>
 

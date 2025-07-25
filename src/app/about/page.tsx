@@ -69,7 +69,7 @@ export default function AboutPage() {
             <h3 className="text-xl font-bold mb-2">Innovation</h3>
             <p className="text-muted-foreground">
               We embrace new technologies and approaches, constantly pushing the
-              boundaries of what's possible in web development.
+              boundaries of what&apos;s possible in web development.
             </p>
           </div>
           <div className="bg-card rounded-lg p-6 shadow-sm">
@@ -108,7 +108,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
         <p className="text-muted-foreground mb-6 max-w-[600px] mx-auto">
           Have questions, suggestions, or want to contribute to our projects?
-          We'd love to hear from you!
+          We&apos;d love to hear from you!
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild>

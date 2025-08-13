@@ -1,18 +1,12 @@
 import Link from 'next/link';
-import { ArrowRight, Code, Compass, Layers } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { apps } from '@/data/apps';
+import { AppCard } from '@/components/app-card';
 
 export default function Home() {
+  const featuredApps = apps.filter((app) => app.featured);
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -59,89 +53,9 @@ export default function Home() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2 lg:grid-cols-3">
-            {/* Featured App 1 */}
-            <Card className="overflow-hidden">
-              <CardHeader className="p-6">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">Task Manager</CardTitle>
-                  <Badge>Productivity</Badge>
-                </div>
-                <CardDescription>
-                  A simple yet powerful task management application
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="h-40 bg-muted rounded-md flex items-center justify-center">
-                  <Layers className="h-12 w-12 text-muted-foreground" />
-                </div>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 flex justify-between">
-                <Link href="/apps/task-manager">
-                  <Button variant="outline" size="sm">
-                    View Details
-                  </Button>
-                </Link>
-                <Link href="https://task-manager.openhouse.app" target="_blank">
-                  <Button size="sm">Live Demo</Button>
-                </Link>
-              </CardFooter>
-            </Card>
-
-            {/* Featured App 2 */}
-            <Card className="overflow-hidden">
-              <CardHeader className="p-6">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">Weather Dashboard</CardTitle>
-                  <Badge>Utility</Badge>
-                </div>
-                <CardDescription>
-                  Real-time weather information with beautiful visualizations
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="h-40 bg-muted rounded-md flex items-center justify-center">
-                  <Compass className="h-12 w-12 text-muted-foreground" />
-                </div>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 flex justify-between">
-                <Link href="/apps/weather-dashboard">
-                  <Button variant="outline" size="sm">
-                    View Details
-                  </Button>
-                </Link>
-                <Link href="https://weather.openhouse.app" target="_blank">
-                  <Button size="sm">Live Demo</Button>
-                </Link>
-              </CardFooter>
-            </Card>
-
-            {/* Featured App 3 */}
-            <Card className="overflow-hidden">
-              <CardHeader className="p-6">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">Code Playground</CardTitle>
-                  <Badge>Development</Badge>
-                </div>
-                <CardDescription>
-                  Interactive code editor with real-time preview
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="h-40 bg-muted rounded-md flex items-center justify-center">
-                  <Code className="h-12 w-12 text-muted-foreground" />
-                </div>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 flex justify-between">
-                <Link href="/apps/code-playground">
-                  <Button variant="outline" size="sm">
-                    View Details
-                  </Button>
-                </Link>
-                <Link href="https://code.openhouse.app" target="_blank">
-                  <Button size="sm">Live Demo</Button>
-                </Link>
-              </CardFooter>
-            </Card>
+            {featuredApps.map((app) => (
+              <AppCard key={app.slug} app={app} />
+            ))}
           </div>
           <div className="flex justify-center mt-8">
             <Link href="/apps">

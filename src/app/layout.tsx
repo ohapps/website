@@ -8,6 +8,7 @@ import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
 import './globals.css';
 import { links } from '@/types/links';
+import Logo from '@/components/logo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
@@ -34,9 +35,7 @@ export default function RootLayout({
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
               <div className="w-full max-w-screen-xl mx-auto flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-6 md:gap-10">
-                  <Link href="/" className="flex items-center space-x-2">
-                    <span className="font-bold text-xl">Open House Apps</span>
-                  </Link>
+                  <Logo />
                   <nav className="hidden md:flex gap-6">
                     <Link
                       href="/"

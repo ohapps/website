@@ -4,119 +4,11 @@ import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-// This would typically come from a database or API
-const apps = {
-  'task-manager': {
-    title: 'Task Manager',
-    category: 'Productivity',
-    description: 'A simple yet powerful task management application',
-    longDescription:
-      "The Task Manager application helps you organize your daily tasks, set priorities, and track your progress. With features like task categories, due dates, and progress tracking, it's the perfect tool to boost your productivity.",
-    features: [
-      'Create and manage tasks with ease',
-      'Organize tasks into projects and categories',
-      'Set due dates and reminders',
-      'Track your progress with visual indicators',
-      'Collaborate with team members',
-    ],
-    technologies: ['React', 'Next.js', 'Tailwind CSS', 'Supabase'],
-    demoUrl: 'https://task-manager.openhouse.app',
-    githubUrl: 'https://github.com/openhouse-apps/task-manager',
-    screenshots: [
-      { url: '/placeholder.svg', alt: 'Task Manager Dashboard' },
-      { url: '/placeholder.svg', alt: 'Task Creation Form' },
-      { url: '/placeholder.svg', alt: 'Task Categories View' },
-    ],
-  },
-  'weather-dashboard': {
-    title: 'Weather Dashboard',
-    category: 'Utility',
-    description: 'Real-time weather information with beautiful visualizations',
-    longDescription:
-      'The Weather Dashboard provides real-time weather information for locations around the world. With beautiful visualizations and detailed forecasts, you can stay informed about current conditions and plan ahead.',
-    features: [
-      'Real-time weather data for any location',
-      '7-day forecast with detailed information',
-      'Interactive weather maps',
-      'Severe weather alerts',
-      'Historical weather data',
-    ],
-    technologies: [
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'OpenWeatherMap API',
-      'Chart.js',
-    ],
-    demoUrl: 'https://weather.openhouse.app',
-    githubUrl: 'https://github.com/openhouse-apps/weather-dashboard',
-    screenshots: [
-      { url: '/placeholder.svg', alt: 'Weather Dashboard Main View' },
-      { url: '/placeholder.svg', alt: 'Forecast View' },
-      { url: '/placeholder.svg', alt: 'Weather Map' },
-    ],
-  },
-  'code-playground': {
-    title: 'Code Playground',
-    category: 'Development',
-    description: 'Interactive code editor with real-time preview',
-    longDescription:
-      "The Code Playground is an interactive code editor that allows you to write and test HTML, CSS, and JavaScript code in real-time. With features like syntax highlighting, code completion, and instant preview, it's the perfect tool for web developers.",
-    features: [
-      'Write HTML, CSS, and JavaScript code',
-      'Real-time preview of your code',
-      'Syntax highlighting and code completion',
-      'Save and share your code snippets',
-      'Multiple themes and customization options',
-    ],
-    technologies: [
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'Monaco Editor',
-      'Babel',
-    ],
-    demoUrl: 'https://code.openhouse.app',
-    githubUrl: 'https://github.com/openhouse-apps/code-playground',
-    screenshots: [
-      { url: '/placeholder.svg', alt: 'Code Playground Editor' },
-      { url: '/placeholder.svg', alt: 'Code Preview' },
-      { url: '/placeholder.svg', alt: 'Code Sharing Interface' },
-    ],
-  },
-  'note-taking': {
-    title: 'Note Taking App',
-    category: 'Productivity',
-    description: 'Simple and elegant note-taking application',
-    longDescription:
-      "The Note Taking App is a simple and elegant application for capturing your thoughts, ideas, and important information. With features like rich text editing, organization with tags, and cloud synchronization, it's the perfect tool for keeping your notes organized.",
-    features: [
-      'Create and edit notes with rich text formatting',
-      'Organize notes with tags and categories',
-      'Search through your notes quickly',
-      'Cloud synchronization across devices',
-      'Dark mode support',
-    ],
-    technologies: [
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'Tiptap Editor',
-      'Supabase',
-    ],
-    demoUrl: 'https://notes.openhouse.app',
-    githubUrl: 'https://github.com/openhouse-apps/note-taking',
-    screenshots: [
-      { url: '/placeholder.svg', alt: 'Notes Dashboard' },
-      { url: '/placeholder.svg', alt: 'Note Editor' },
-      { url: '/placeholder.svg', alt: 'Tags Management' },
-    ],
-  },
-};
+import { apps } from '@/data/apps';
+import Screenshots from '@/components/screenshots';
 
 export function generateStaticParams() {
-  return Object.keys(apps).map((slug) => ({ slug }));
+  return apps.map(({ slug }) => ({ slug }));
 }
 
 interface PageProps {
@@ -127,7 +19,7 @@ interface PageProps {
 
 export default async function AppPage({ params }: PageProps) {
   const { slug } = await params;
-  const app = apps[slug as keyof typeof apps];
+  const app = apps.find((app) => app.slug === slug);
 
   if (!app) {
     return (
@@ -185,29 +77,7 @@ export default async function AppPage({ params }: PageProps) {
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mb-10">
-        <div className="md:col-span-2">
-          <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-4">
-            <img
-              src="/placeholder.svg"
-              alt={`${app.title} Screenshot`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            {app.screenshots.map((screenshot, index) => (
-              <div
-                key={index}
-                className="aspect-video bg-muted rounded-lg overflow-hidden"
-              >
-                <img
-                  src={screenshot.url || '/placeholder.svg'}
-                  alt={screenshot.alt}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <Screenshots screenshots={app.screenshots} />
         <div>
           <Tabs defaultValue="overview">
             <TabsList className="grid w-full grid-cols-3">

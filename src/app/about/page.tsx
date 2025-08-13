@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Github, Mail } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { links } from '@/types/links';
 
 export default function AboutPage() {
   return (
@@ -46,7 +47,7 @@ export default function AboutPage() {
               We believe in the power of community-driven development.
             </p>
             <Button asChild>
-              <Link href="https://github.com/openhouse-apps" target="_blank">
+              <Link href={links.github} target="_blank">
                 <Github className="mr-2 h-4 w-4" />
                 Visit Our GitHub
               </Link>
@@ -118,7 +119,7 @@ export default function AboutPage() {
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href="https://github.com/openhouse-apps" target="_blank">
+            <Link href={links.github} target="_blank">
               <Github className="mr-2 h-4 w-4" />
               GitHub
             </Link>

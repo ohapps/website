@@ -4,10 +4,15 @@ import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { apps } from '@/data/apps';
+import { getApps } from '@/data/apps';
 import Screenshots from '@/components/screenshots';
+import { REVALIDATE_INTERVAL } from '@/config/site';
 
-export function generateStaticParams() {
+export const revalidate = REVALIDATE_INTERVAL;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const apps = await getApps();
   return apps.map(({ slug }) => ({ slug }));
 }
 
@@ -19,6 +24,7 @@ interface PageProps {
 
 export default async function AppPage({ params }: PageProps) {
   const { slug } = await params;
+  const apps = await getApps();
   const app = apps.find((app) => app.slug === slug);
 
   if (!app) {
@@ -61,18 +67,22 @@ export default async function AppPage({ params }: PageProps) {
           <p className="text-muted-foreground text-lg">{app.description}</p>
         </div>
         <div className="flex gap-2">
-          <Button asChild>
-            <Link href={app.demoUrl} target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              Live Demo
-            </Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link href={app.githubUrl} target="_blank">
-              <Github className="mr-2 h-4 w-4" />
-              Source Code
-            </Link>
-          </Button>
+          {app.demoUrl && (
+            <Button asChild>
+              <Link href={app.demoUrl} target="_blank">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Live Demo
+              </Link>
+            </Button>
+          )}
+          {app.githubUrl && (
+            <Button variant="outline" asChild>
+              <Link href={app.githubUrl} target="_blank">
+                <Github className="mr-2 h-4 w-4" />
+                Source Code
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
 

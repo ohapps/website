@@ -1,6 +1,11 @@
 import { AppList } from '@/components/app-list';
+import { getApps } from '@/data/apps';
+import { REVALIDATE_INTERVAL } from '@/config/site';
 
-export default function AppsPage() {
+export const revalidate = REVALIDATE_INTERVAL;
+
+export default async function AppsPage() {
+  const apps = await getApps();
   return (
     <div>
       <div className="flex flex-col items-center space-y-4 text-center mb-10">
@@ -11,7 +16,7 @@ export default function AppsPage() {
           Browse our collection of web applications
         </p>
       </div>
-      <AppList />
+      <AppList apps={apps} />
     </div>
   );
 }

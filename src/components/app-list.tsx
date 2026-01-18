@@ -1,6 +1,5 @@
 'use client';
 
-import { apps } from '@/data/apps';
 import {
   Select,
   SelectContent,
@@ -9,22 +8,16 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Search } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from './ui/button';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from './ui/card';
 import { Input } from './ui/input';
-import Link from 'next/link';
 import { useState } from 'react';
 import { AppCard } from './app-card';
+import { App } from '@/types/apps';
 
-export function AppList() {
+interface AppListProps {
+  apps: App[];
+}
+
+export function AppList({ apps }: AppListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const filteredApps = apps.filter((app) => {

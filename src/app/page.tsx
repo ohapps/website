@@ -2,10 +2,14 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { apps } from '@/data/apps';
+import { getApps } from '@/data/apps';
 import { AppCard } from '@/components/app-card';
+import { REVALIDATE_INTERVAL } from '@/config/site';
 
-export default function Home() {
+export const revalidate = REVALIDATE_INTERVAL;
+
+export default async function Home() {
+  const apps = await getApps();
   const featuredApps = apps.filter((app) => app.featured);
   return (
     <div className="flex flex-col min-h-screen">

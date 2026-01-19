@@ -1,19 +1,39 @@
 import type { NextConfig } from "next";
 
-const strapiUrl = new URL(process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337');
+const getStrapiConfig = () => {
+    try {
+        const url = new URL(process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337');
+        return {
+            protocol: url.protocol.replace(':', '') as 'http' | 'https',
+            hostname: url.hostname,
+            port: url.port || '',
+            pathname: '**',
+        };
+    } catch {
+        return {
+            protocol: 'http' as const,
+            hostname: 'localhost',
+            port: '1337',
+            pathname: '**',
+        };
+    }
+};
+
+const strapiConfig = getStrapiConfig();
 
 const nextConfig: NextConfig = {
     images: {
         remotePatterns: [
-            {
-                protocol: strapiUrl.protocol.replace(':', '') as 'http' | 'https',
-                hostname: strapiUrl.hostname,
-                port: strapiUrl.port,
-                pathname: '/uploads/**',
-            },
+            strapiConfig,
+            { protocol: 'https', hostname: 'res.cloudinary.com' },
+            { protocol: 'https', hostname: '**.amazonaws.com' },
+            { protocol: 'https', hostname: '**.strapi.io' },
         ],
     },
 };
+
+
+
 
 
 

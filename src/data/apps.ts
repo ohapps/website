@@ -26,11 +26,24 @@ interface StrapiApp {
 const mapImage = (img: StrapiImage | undefined, fallbackAlt: string) => {
     if (!img || !img.url) return { url: '', alt: '' };
 
+    // If it's already a full URL, use it
+    if (img.url.startsWith('http')) {
+        return {
+            url: img.url,
+            alt: img.alternativeText || fallbackAlt || ''
+        };
+    }
+
+    // Otherwise, prepend the API URL and handle potential slash issues
+    const baseUrl = API_URL.endsWith('/') ? API_URL.slice(0, -1) : API_URL;
+    const path = img.url.startsWith('/') ? img.url : `/${img.url}`;
+
     return {
-        url: img.url.startsWith('/') ? `${API_URL}${img.url}` : img.url,
+        url: `${baseUrl}${path}`,
         alt: img.alternativeText || fallbackAlt || ''
     };
 };
+
 
 export async function getApps(): Promise<App[]> {
     try {

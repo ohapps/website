@@ -28,13 +28,9 @@ const nextConfig: NextConfig = {
             { protocol: 'https', hostname: 'res.cloudinary.com' },
             { protocol: 'https', hostname: '**.amazonaws.com' },
             { protocol: 'https', hostname: '**.strapi.io' },
+            { protocol: 'https', hostname: '**.strapiapp.com' },
         ],
     },
 };
-
-
-
-
-
 
 export default nextConfig;

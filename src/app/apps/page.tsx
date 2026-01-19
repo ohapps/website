@@ -1,8 +1,7 @@
 import { AppList } from '@/components/app-list';
 import { getApps } from '@/data/apps';
-import { REVALIDATE_INTERVAL } from '@/config/site';
 
-export const revalidate = REVALIDATE_INTERVAL;
+export const revalidate = 3600;
 
 export default async function AppsPage() {
   const apps = await getApps();

@@ -6,9 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getApps } from '@/data/apps';
 import Screenshots from '@/components/screenshots';
-import { REVALIDATE_INTERVAL } from '@/config/site';
 
-export const revalidate = REVALIDATE_INTERVAL;
+export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {

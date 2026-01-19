@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       message: 'All paths revalidated' 
     });
   } catch (err) {
+    console.error('Revalidation error:', err);
     return NextResponse.json({ message: 'Error revalidating' }, { status: 500 });
   }
 }
